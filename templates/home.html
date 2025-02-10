@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/styles.css">
+    <title>To-Do List</title>
+</head>
+<body>
+
+<div class="todo-container">
+    <h3>To-Do List by marfii ❤️</h3>
+
+    <!-- Input field for new tasks -->
+    <form action="/add_task" method="post">
+        <div class="input-container">
+            <input type="text" placeholder="Enter task..." id="task-input" name="task">
+            <button type="submit" id="add-btn">Add</button>
+        </div>
+    </form>
+    <form method="post" action="/filter_task">
+        <div class="input-container">
+            <select name="tasks">
+                <option value="1">Completed</option>
+                <option value="0">Pending</option>
+            </select>
+            <button type = "submit">filter</button>
+        </div>
+    </form>
+    <div id="todo-list">
+        {% for record in data %}
+        <div class="todo-item">
+            <p>{{record.task}}</p>
+            <div class="btns">
+                <a href="{{url_for('change_status',tid = record.id)}}" style="text-decoration:none;">
+                    <button class="done-btn"><img src="static/correct.png" alt="Done"></button>
+                </a>
+                <a href="{{url_for('delete_task',tid = record.id)}}" style="text-decoration:none;">
+                    <button class="delete-btn"><img src="static/delete.png" alt="Delete"></button>
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+</body>
+</html>
